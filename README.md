@@ -48,3 +48,23 @@ Arquivos incluídos:
 4. Copie `.env.example` para `.env` e preencha URL/chave anon.
 
 Obs.: nesta etapa, a navegação principal permanece local-first para garantir estabilidade visual durante design/revisão.
+
+## Acesso pelo IP da rede local (celular / outro PC)
+
+Em `http://192.168.x.x:8080` o navegador costuma **não expor** `crypto.subtle` (só em contexto seguro: **HTTPS** ou **localhost**). O login usa SHA-256 com fallback puro em JS nesses casos, para a demo continuar funcionando.
+
+## Publicar no GitHub Pages
+
+Repositório em `https://usuario.github.io/capacita/` exige assets sob o prefixo `/capacita/`:
+
+```bash
+npm run build:github
+```
+
+Envie o conteúdo da pasta `dist/` para a branch `gh-pages` (ou a raiz do site nas configurações do repositório). O script copia `index.html` para `404.html` para rotas do SPA ao atualizar a página.
+
+Se o nome do repositório não for `capacita`, ajuste o `--base` em `package.json` (`build:github`) para `/<nome-do-repo>/`.
+
+## Avisos no console do navegador
+
+Mensagens como `chrome-extension://...` ou `listener ... message channel` vêm de **extensões** do Chrome, não do app. Pode ignorar ou testar em janela anônima sem extensões.

@@ -58,6 +58,9 @@ import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
 
+/** Alinha rotas com `vite build --base /repositorio/` (ex.: GitHub Pages). */
+const routerBasename = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "") || undefined;
+
 function LegacyPortalCourse() {
   const { id } = useParams();
   return <Navigate to={ROUTES.portal.course(id!)} replace />;
@@ -84,7 +87,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={routerBasename}>
           <SessionActivity />
           <Routes>
             <Route path={ROUTES.access.login} element={<AccessLoginPage />} />
